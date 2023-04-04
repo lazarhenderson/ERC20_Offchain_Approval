@@ -15,6 +15,6 @@ npx hardhat
 npm i -D @nomiclabs/hardhat-waffle
 npm install --save-dev @nomicfoundation/hardhat-chai-matchers
 
-# Test ERC20 Permit
+# Test ERC20 Permit with offchain approval
 npx hardhat test test/erc20-permit.js
 ```
