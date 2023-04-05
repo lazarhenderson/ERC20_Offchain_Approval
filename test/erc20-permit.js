@@ -1,5 +1,5 @@
-const { expect } = require("chai")
-const { ethers } = require("hardhat")
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
 
 async function getPermitSignature(signer, token, spender, value, deadline) {
   const [nonce, name, version, chainId] = await Promise.all([
@@ -7,7 +7,7 @@ async function getPermitSignature(signer, token, spender, value, deadline) {
     token.name(),
     "1",
     signer.getChainId(),
-  ])
+  ]);
 
   return ethers.utils.splitSignature(
     await signer._signTypedData(
@@ -49,26 +49,26 @@ async function getPermitSignature(signer, token, spender, value, deadline) {
         deadline,
       }
     )
-  )
+  );
 }
 
 describe("ERC20Permit", function () {
   it("ERC20 permit", async function () {
-    const accounts = await ethers.getSigners(1)
-    const signer = accounts[0]
+    const accounts = await ethers.getSigners(1);
+    const signer = accounts[0];
 
-    const Token = await ethers.getContractFactory("Token")
-    const token = await Token.deploy()
-    await token.deployed()
+    const Token = await ethers.getContractFactory("Token");
+    const token = await Token.deploy();
+    await token.deployed();
 
-    const Vault = await ethers.getContractFactory("Vault")
-    const vault = await Vault.deploy(token.address)
-    await vault.deployed()
+    const Vault = await ethers.getContractFactory("Vault");
+    const vault = await Vault.deploy(token.address);
+    await vault.deployed();
 
-    const amount = 1000
-    await token.mint(signer.address, amount)
+    const amount = 1000;
+    await token.mint(signer.address, amount);
 
-    const deadline = ethers.constants.MaxUint256
+    const deadline = ethers.constants.MaxUint256;
 
     const { v, r, s } = await getPermitSignature(
       signer,
@@ -76,9 +76,12 @@ describe("ERC20Permit", function () {
       vault.address,
       amount,
       deadline
-    )
+    );
 
-    await vault.depositWithPermit(amount, deadline, v, r, s)
-    expect(await token.balanceOf(vault.address)).to.equal(amount)
-  })
-})
+    tokenContractOwner = await token.owner();
+    console.log("tokenContractOwner: ", tokenContractOwner);
+
+    await vault.depositWithPermit(amount, deadline, v, r, s);
+    expect(await token.balanceOf(vault.address)).to.equal(amount);
+  });
+});
