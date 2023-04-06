@@ -78,8 +78,8 @@ describe("ERC20Permit", function () {
       deadline
     );
 
-    tokenContractOwner = await token.owner();
-    console.log("tokenContractOwner: ", tokenContractOwner);
+    console.log("tokenContractOwner: ", await token.owner());
+    console.log("token totalSupply: ", await token.totalSupply());
 
     await vault.depositWithPermit(amount, deadline, v, r, s);
     expect(await token.balanceOf(vault.address)).to.equal(amount);

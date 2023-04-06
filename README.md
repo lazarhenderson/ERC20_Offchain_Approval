@@ -5,16 +5,16 @@ This ERC20 token has the ability to reduce gas spending when using the transferF
 To test this, you can download or clone this repository and do the following:
 
 ```shell
-# Install Hardhat
+# Install Hardhat:
 npm i -D hardhat
 
 # Run this, and click enter 4 times:
 npx hardhat
 
-# Install Hardhat dependencies
+# Install Hardhat dependencies:
 npm i -D @nomiclabs/hardhat-waffle
 npm install --save-dev @nomicfoundation/hardhat-chai-matchers
 
-# Test ERC20 Permit with offchain approval
+# Test ERC20 Permit with offchain approval:
 npx hardhat test test/erc20-permit.js
 ```
